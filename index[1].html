@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ian Kuria - Professional portfolio website showcasing skills, projects, experience, and contact information." />
+  <meta name="author" content="Ian Kuria" />
+  <title>Ian Kuria | Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111c33;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --muted-2: #94a3b8;
+      --primary: #38bdf8;
+      --secondary: #a78bfa;
+      --accent: #22c55e;
+      --danger: #fb7185;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max-width: 1180px;
+      --transition: 220ms ease;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-soft: #eef2ff;
+      --card: rgba(255, 255, 255, 0.78);
+      --card-border: rgba(15, 23, 42, 0.1);
+      --text: #0f172a;
+      --muted: #334155;
+      --muted-2: #64748b;
+      --shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 34rem),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.2), transparent 32rem),
+        radial-gradient(circle at 50% 70%, rgba(34, 197, 94, 0.1), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 75%);
+      z-index: -2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--max-width));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 18px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .nav {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.66);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    [data-theme="light"] .nav {
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      padding: 9px 13px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 650;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] .nav-links a:hover,
+    [data-theme="light"] .nav-links a.active {
+      background: rgba(15, 23, 42, 0.06);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 132px 0 80px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      margin-bottom: 22px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 650;
+      backdrop-filter: blur(14px);
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.14);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary) 55%, #f472b6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 2vw, 1.24rem);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 750;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #020617;
+      background: linear-gradient(135deg, var(--primary), #7dd3fc);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.28);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 24px 56px rgba(56, 189, 248, 0.36);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      border-color: var(--card-border);
+      background: var(--card);
+      backdrop-filter: blur(14px);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(167, 139, 250, 0.55);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .quick-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted-2);
+      font-size: 0.96rem;
+    }
+
+    .quick-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color var(--transition);
+    }
+
+    .quick-contact a:hover {
+      color: var(--primary);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .profile-card {
+      position: relative;
+      padding: 26px;
+      border: 1px solid var(--card-border);
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055)),
+        var(--card);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      isolation: isolate;
+      transform-style: preserve-3d;
+      transition: transform 180ms ease;
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      top: -120px;
+      right: -120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.55), transparent 68%);
+      z-index: -1;
+    }
+
+    .profile-card::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      bottom: -130px;
+      left: -110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.42), transparent 68%);
+      z-index: -1;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .profile-photo-wrap {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .profile-photo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), #f472b6);
+      animation: spin 8s linear infinite;
+    }
+
+    .profile-photo {
+      position: relative;
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--bg);
+      background: linear-gradient(135deg, #1e293b, #334155);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .profile-meta h2 {
+      font-size: 1.72rem;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+
+    .profile-meta p {
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .contact-card {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .contact-item:hover {
+      transform: translateX(4px);
+      border-color: rgba(56, 189, 248, 0.38);
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .contact-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: #020617;
+      background: linear-gradient(135deg, var(--primary), #93c5fd);
+      flex: 0 0 auto;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px 12px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.52rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted-2);
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    section {
+      padding: 86px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: 0.86rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .section-subtitle {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .panel {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .about-panel {
+      padding: 28px;
+    }
+
+    .about-panel p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-list {
+      display: grid;
+      gap: 14px;
+      padding: 28px;
+    }
+
+    .highlight {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid var(--card-border);
+    }
+
+    .highlight svg {
+      flex: 0 0 auto;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .highlight h3 {
+      font-size: 1rem;
+      margin-bottom: 3px;
+    }
+
+    .highlight p {
+      color: var(--muted-2);
+      font-size: 0.95rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .skill-card {
+      padding: 22px;
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(56, 189, 248, 0.48);
+      background: rgba(255, 255, 255, 0.105);
+    }
+
+    .skill-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      margin-bottom: 18px;
+      color: #020617;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .skill-card h3 {
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .project-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      padding: 9px 14px;
+      cursor: pointer;
+      font-weight: 750;
+      transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      color: var(--text);
+      background: rgba(56, 189, 248, 0.16);
+      border-color: rgba(56, 189, 248, 0.44);
+      transform: translateY(-2px);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition), opacity 250ms ease;
+    }
+
+    .project-card.hide {
+      opacity: 0;
+      transform: scale(0.96);
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(167, 139, 250, 0.48);
+    }
+
+    .project-thumb {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3), transparent 22%),
+        linear-gradient(135deg, rgba(56, 189, 248, 0.7), rgba(167, 139, 250, 0.75));
+    }
+
+    .project-thumb.alt {
+      background:
+        radial-gradient(circle at 78% 24%, rgba(255,255,255,0.28), transparent 20%),
+        linear-gradient(135deg, rgba(34, 197, 94, 0.65), rgba(56, 189, 248, 0.72));
+    }
+
+    .project-thumb.third {
+      background:
+        radial-gradient(circle at 44% 35%, rgba(255,255,255,0.32), transparent 18%),
+        linear-gradient(135deg, rgba(244, 114, 182, 0.65), rgba(167, 139, 250, 0.72));
+    }
+
+    .project-thumb::before,
+    .project-thumb::after {
+      content: "";
+      position: absolute;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-thumb::before {
+      width: 72%;
+      height: 42%;
+      left: 14%;
+      top: 26%;
+      transform: rotate(-4deg);
+    }
+
+    .project-thumb::after {
+      width: 46%;
+      height: 18%;
+      left: 27%;
+      bottom: 18%;
+      transform: rotate(3deg);
+    }
+
+    .project-body {
+      padding: 22px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .project-body h3 {
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .project-body p {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 18px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-weight: 800;
+      transition: color var(--transition), gap var(--transition);
+    }
+
+    .project-link:hover {
+      color: var(--primary);
+      gap: 12px;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      background: linear-gradient(var(--primary), var(--secondary));
+      opacity: 0.6;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 10px;
+    }
+
+    .timeline-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #020617;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.22);
+      z-index: 1;
+    }
+
+    .timeline-content {
+      padding: 24px;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+    }
+
+    .timeline-content time {
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: 850;
+    }
+
+    .timeline-content h3 {
+      margin: 6px 0 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-content p {
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .contact-info {
+      padding: 28px;
+    }
+
+    .contact-info h3 {
+      font-size: 1.6rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .contact-info > p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.055);
+      transition: transform var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      color: var(--text);
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    .contact-form {
+      padding: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: var(--muted);
+      font-weight: 750;
+      font-size: 0.94rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 13px 14px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.65);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.13);
+      background: rgba(255, 255, 255, 0.095);
+    }
+
+    textarea {
+      min-height: 142px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted-2);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 2000;
+      max-width: 360px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      background: rgba(15, 23, 42, 0.86);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      transform: translateY(22px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    [data-theme="light"] .toast {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 34px 0 42px;
+      color: var(--muted-2);
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .back-to-top {
+      color: var(--muted);
+      font-weight: 750;
+      transition: color var(--transition);
+    }
+
+    .back-to-top:hover {
+      color: var(--primary);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 650ms ease, transform 650ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      .hero-visual {
+        max-width: 620px;
+        margin-inline: auto;
+        width: 100%;
+      }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 78px;
+        left: 20px;
+        right: 20px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        background: rgba(15, 23, 42, 0.92);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+      }
+
+      [data-theme="light"] .nav-links {
+        background: rgba(255, 255, 255, 0.94);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        justify-content: center;
+        padding: 13px;
+      }
+
+      .menu-btn {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 28px, var(--max-width));
+      }
+
+      .site-header {
+        top: 10px;
+      }
+
+      .nav {
+        padding: 10px 10px 10px 12px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .hero {
+        padding: 105px 0 56px;
+      }
+
+      h1 {
+        font-size: clamp(2.75rem, 16vw, 4.1rem);
+      }
+
+      .hero-actions,
+      .quick-contact {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .profile-card {
+        padding: 18px;
+        border-radius: 26px;
+      }
+
+      .profile-top {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-photo {
+        width: 112px;
+        height: 112px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .about-panel,
+      .highlight-list,
+      .contact-info,
+      .contact-form {
+        padding: 20px;
+      }
+
+      .skills-grid,
+      .projects-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-thumb {
+        height: 170px;
+      }
+
+      .timeline::before {
+        left: 17px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 46px 1fr;
+      }
+
+      .timeline-dot {
+        width: 36px;
+        height: 36px;
+      }
+
+      .timeline-content {
+        padding: 18px;
+      }
+
+      .toast {
+        right: 14px;
+        left: 14px;
+        bottom: 14px;
+        max-width: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a href="#top" class="brand" aria-label="Ian Kuria home">
+        <span class="brand-mark">IK</span>
+        <span>Ian Kuria</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v2.2M12 18.8V21M4.22 4.22l1.56 1.56M18.22 18.22l1.56 1.56M3 12h2.2M18.8 12H21M4.22 19.78l1.56-1.56M18.22 5.78l1.56-1.56" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="eyebrow">
+            <span class="status-dot"></span>
+            Available for opportunities and collaborations
+          </div>
+
+          <h1>
+            Hi, I’m <span class="gradient-text">Ian Kuria</span>.
+          </h1>
+
+          <p class="hero-copy">
+            A modern, detail-focused professional building a strong personal brand through clean design,
+            thoughtful digital experiences, and reliable execution.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              View My Work
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="mailto:kuriaian951@gmail.com" class="btn btn-secondary">
+              Email Me
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="quick-contact">
+            <a href="mailto:kuriaian951@gmail.com" aria-label="Email Ian Kuria">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              kuriaian951@gmail.com
+            </a>
+            <a href="tel:+254741102942" aria-label="Call Ian Kuria">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.15 12.8 19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.09 6.09l1.27-1.27a2 2 0 0 1 2.11-.45c.91.31 1.85.53 2.81.66A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+              +254 741 102 942
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <article class="profile-card" id="profileCard">
+            <div class="profile-top">
+              <div class="profile-photo-wrap">
+                <img class="profile-photo" src="profile.jpg" alt="Profile photo of Ian Kuria" />
+              </div>
+
+              <div class="profile-meta">
+                <h2>Ian Kuria</h2>
+                <p>Professional Portfolio</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <a class="contact-item" href="mailto:kuriaian951@gmail.com">
+                <span class="contact-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+                    <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </span>
+                <span>kuriaian951@gmail.com</span>
+              </a>
+
+              <a class="contact-item" href="tel:+254741102942">
+                <span class="contact-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.15 12.8 19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.09 6.09l1.27-1.27a2 2 0 0 1 2.11-.45c.91.31 1.85.53 2.81.66A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>+254 741 102 942</span>
+              </a>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>100%</strong>
+                <span>Commitment</span>
+              </div>
+              <div class="stat">
+                <strong>24h</strong>
+                <span>Response</span>
+              </div>
+              <div class="stat">
+                <strong>KE</strong>
+                <span>Based</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker">About</span>
+            <h2 class="section-title">A polished personal brand built for trust.</h2>
+          </div>
+          <p class="section-subtitle">
+            This portfolio presents Ian Kuria with clarity, confidence, and a professional digital presence.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel about-panel reveal">
+            <p>
+              I’m Ian Kuria, a focused and adaptable professional passionate about creating meaningful work,
+              solving problems, and communicating ideas clearly.
+            </p>
+            <p>
+              My approach blends strategy, consistency, and attention to detail. I value clean presentation,
+              dependable delivery, and experiences that are easy for people to understand and engage with.
+            </p>
+            <p>
+              Whether collaborating on a project, building a brand presence, or exploring a new opportunity,
+              I bring curiosity, accountability, and a commitment to continuous growth.
+            </p>
+          </article>
+
+          <div class="panel highlight-list reveal">
+            <div class="highlight">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m20 6-11 11-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h3>Professional Presence</h3>
+                <p>Clean, credible communication designed to leave a strong first impression.</p>
+              </div>
+            </div>
+
+            <div class="highlight">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h3>Results Mindset</h3>
+                <p>Focused on practical outcomes, measurable progress, and dependable follow-through.</p>
+              </div>
+            </div>
+
+            <div class="highlight">
+              <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h3>Detail-Oriented</h3>
+                <p>Thoughtful execution with emphasis on quality, structure, and presentation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker">Strengths</span>
+            <h2 class="section-title">Core capabilities.</h2>
+          </div>
+          <p class="section-subtitle">
+            A flexible skill set that supports communication, execution, collaboration, and growth.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill-card reveal">
+            <div class="skill-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Communication</h3>
+            <p>Clear, professional messaging for teamwork, clients, and opportunities.</p>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Learning Agility</h3>
+            <p>Quick to adapt, improve, and apply new knowledge in practical ways.</p>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Reliability</h3>
+            <p>Consistent follow-through, strong ownership, and dependable execution.</p>
+          </article>
+
+          <article class="skill-card reveal">
+            <div class="skill-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64 5.64 18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Problem Solving</h3>
+            <p>Structured thinking and calm decision-making when tackling challenges.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker">Work</span>
+            <h2 class="section-title">Featured portfolio areas.</h2>
+          </div>
+          <p class="section-subtitle">
+            Use this section to showcase projects, achievements, services, case studies, or professional highlights.
+          </p>
+        </div>
+
+        <div class="project-controls reveal" aria-label="Project filters">
+          <button class="filter-btn active" type="button" data-filter="all">All</button>
+          <button class="filter-btn" type="button" data-filter="brand">Brand</button>
+          <button class="filter-btn" type="button" data-filter="digital">Digital</button>
+          <button class="filter-btn" type="button" data-filter="strategy">Strategy</button>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card reveal" data-category="brand">
+            <div class="project-thumb"></div>
+            <div class="project-body">
+              <div class="tags">
+                <span class="tag">Brand</span>
+                <span class="tag">Identity</span>
+              </div>
+              <h3>Personal Brand System</h3>
+              <p>A polished framework for presenting professional values, strengths, and contact details clearly.</p>
+              <a class="project-link" href="#contact">
+                Discuss this
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="digital">
+            <div class="project-thumb alt"></div>
+            <div class="project-body">
+              <div class="tags">
+                <span class="tag">Digital</span>
+                <span class="tag">Web</span>
+              </div>
+              <h3>Responsive Portfolio</h3>
+              <p>A modern single-page experience optimized for mobile, desktop, readability, and quick contact.</p>
+              <a class="project-link" href="#contact">
+                Get in touch
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="strategy">
+            <div class="project-thumb third"></div>
+            <div class="project-body">
+              <div class="tags">
+                <span class="tag">Strategy</span>
+                <span class="tag">Growth</span>
+              </div>
+              <h3>Opportunity Roadmap</h3>
+              <p>A practical approach to showcasing capabilities, building trust, and converting interest into action.</p>
+              <a class="project-link" href="#contact">
+                Start a conversation
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker">Journey</span>
+            <h2 class="section-title">Professional direction.</h2>
+          </div>
+          <p class="section-subtitle">
+            A concise timeline designed to be customized with education, work history, certifications, and achievements.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-dot">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m12 3 9 5-9 5-9-5 9-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="m21 12-9 5-9-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="timeline-content">
+              <time>Current</time>
+              <h3>Building a Professional Presence</h3>
+              <p>Developing a strong personal portfolio to communicate capabilities, values, and availability.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-dot">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="timeline-content">
+              <time>Growth</time>
+              <h3>Continuous Learning</h3>
+              <p>Improving skills, refining communication, and pursuing opportunities that support long-term growth.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-dot">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="timeline-content">
+              <time>Next</time>
+              <h3>Open to Collaboration</h3>
+              <p>Ready to connect with professionals, teams, and organizations looking for committed talent.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker">Contact</span>
+            <h2 class="section-title">Let’s connect.</h2>
+          </div>
+          <p class="section-subtitle">
+            Reach out for opportunities, collaborations, questions, or introductions.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <aside class="panel contact-info reveal">
+            <h3>Contact Ian Kuria</h3>
+            <p>
+              I’m available by email or phone. Send a message and I’ll respond as soon as possible.
+            </p>
+
+            <div class="contact-list">
+              <a class="contact-item" href="mailto:kuriaian951@gmail.com">
+                <span class="contact-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+                    <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </span>
+                <span>kuriaian951@gmail.com</span>
+              </a>
+
+              <a class="contact-item" href="tel:+254741102942">
+                <span class="contact-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.15 12.8 19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.9.66 2.81a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6.09 6.09l1.27-1.27a2 2 0 0 1 2.11-.45c.91.31 1.85.53 2.81.66A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>+254 741 102 942</span>
+              </a>
+            </div>
+
+            <div class="social-row" aria-label="Social links">
+              <a class="social-link" href="mailto:kuriaian951@gmail.com">
+                Email
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="social-link" href="tel:+254741102942">
+                Call
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </aside>
+
+          <form class="panel contact-form reveal" id="contactForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+              </div>
+
+              <div class="form-field">
+                <label for="email">Your email</label>
+                <input id="email" name="email" type="email" placeholder="jane@example.com" required />
+              </div>
+
+              <div class="form-field full">
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" type="text" placeholder="Opportunity / Collaboration / Inquiry" required />
+              </div>
+
+              <div class="form-field full">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              Send Message
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m22 2-7 20-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+            <p class="form-note">
+              This form opens your email app with the message prepared for Ian Kuria.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Ian Kuria. All rights reserved.</p>
+      <a class="back-to-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    Opening your email app with the message prepared.
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const year = document.getElementById("year");
+    const toast = document.getElementById("toast");
+    const contactForm = document.getElementById("contactForm");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project-card");
+    const sections = document.querySelectorAll("main section[id]");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+    const profileCard = document.getElementById("profileCard");
+
+    year.textContent = new Date().getFullYear();
+
+    const savedTheme = localStorage.getItem("ian-kuria-theme");
+    if (savedTheme) {
+      document.body.setAttribute("data-theme", savedTheme);
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = document.body.getAttribute("data-theme");
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+
+      if (nextTheme === "dark") {
+        document.body.removeAttribute("data-theme");
+        localStorage.setItem("ian-kuria-theme", "dark");
+      } else {
+        document.body.setAttribute("data-theme", "light");
+        localStorage.setItem("ian-kuria-theme", "light");
+      }
+    });
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navAnchors.forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const clickedInsideNav = event.target.closest(".nav");
+      if (!clickedInsideNav && navLinks.classList.contains("open")) {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal").forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 35, 220)}ms`;
+      revealObserver.observe(element);
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        navAnchors.forEach((anchor) => {
+          anchor.classList.toggle("active", anchor.getAttribute("href") === `#${entry.target.id}`);
+        });
+      });
+    }, {
+      rootMargin: "-45% 0px -50% 0px",
+      threshold: 0
+    });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        projectCards.forEach((card) => {
+          const show = filter === "all" || card.dataset.category === filter;
+          card.classList.toggle("hide", !show);
+        });
+      });
+    });
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const name = encodeURIComponent(formData.get("name").trim());
+      const email = encodeURIComponent(formData.get("email").trim());
+      const subject = encodeURIComponent(formData.get("subject").trim());
+      const message = encodeURIComponent(formData.get("message").trim());
+
+      const body = encodeURIComponent("Hello Ian,\n\n") +
+        message +
+        encodeURIComponent("\n\nFrom: ") +
+        name +
+        encodeURIComponent("\nEmail: ") +
+        email;
+
+      window.location.href = `mailto:kuriaian951@gmail.com?subject=${subject}&body=${body}`;
+
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3600);
+    });
+
+    if (profileCard && window.matchMedia("(pointer: fine)").matches) {
+      profileCard.addEventListener("mousemove", (event) => {
+        const rect = profileCard.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 8;
+        const rotateX = ((y / rect.height) - 0.5) * -8;
+
+        profileCard.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      profileCard.addEventListener("mouseleave", () => {
+        profileCard.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -46,7 +46,6 @@
     <nav id="nav" class="nav" aria-label="Main">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
-      <a href="#reviews">Reviews</a>
       <a href="#process">How it works</a>
       <a href="#contact" class="nav-cta">Start a project</a>
     </nav>
@@ -210,56 +209,8 @@
       </div>
     </section>
 
-    <!-- Reviews -->
-    <section class="section light" id="reviews">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>What clients say</h2>
-          <p>Only reviews from people I have worked with appear here, and each one is added after I confirm it with the client.</p>
-        </div>
-
-        <div id="reviews-list" class="reviews-list" aria-live="polite"></div>
-
-        <div class="review-empty" id="reviews-empty">
-          <h3>Reviews will appear here</h3>
-          <p>I would rather show no reviews than made-up ones. If we have worked together, you can leave a review and it will be published once I have confirmed it with you.</p>
-        </div>
-
-        <details class="review-form-wrap">
-          <summary class="btn btn-dark">Leave a review</summary>
-          <form class="form review-form" id="review-form" novalidate>
-            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <div class="field"><label for="rv-name">Your name <span class="req">(required)</span></label><input id="rv-name" name="name" required autocomplete="name" /></div>
-            <div class="field"><label for="rv-role">Your role or company</label><input id="rv-role" name="role" autocomplete="organization-title" /></div>
-            <div class="field"><label for="rv-email">Email, so I can confirm it was you <span class="req">(required)</span></label><input id="rv-email" name="email" type="email" required autocomplete="email" /></div>
-            <div class="field"><label for="rv-service">Service you used</label>
-              <select id="rv-service" name="service">
-                <option>TikTok / Social Media Content</option>
-                <option>Brand Promotion</option>
-                <option>CV / Resume</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <fieldset class="field rating">
-              <legend>Rating</legend>
-              <label><input type="radio" name="rating" value="5" checked /> 5</label>
-              <label><input type="radio" name="rating" value="4" /> 4</label>
-              <label><input type="radio" name="rating" value="3" /> 3</label>
-              <label><input type="radio" name="rating" value="2" /> 2</label>
-              <label><input type="radio" name="rating" value="1" /> 1</label>
-            </fieldset>
-            <div class="field wide"><label for="rv-text">Your review <span class="req">(required)</span></label><textarea id="rv-text" name="review" rows="4" required></textarea></div>
-            <div class="form-foot">
-              <button class="btn btn-primary" type="submit">Send review</button>
-              <p class="form-status" role="status" tabindex="-1"></p>
-            </div>
-          </form>
-        </details>
-      </div>
-    </section>
-
     <!-- Process -->
-    <section class="section dark" id="process">
+    <section class="section light tint" id="process">
       <div class="wrap">
         <div class="section-head">
           <h2>How a project runs</h2>
@@ -361,7 +312,6 @@
     </article>
   </template>
 
-  <script src="reviews.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

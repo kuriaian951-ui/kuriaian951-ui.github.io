@@ -88,32 +88,6 @@
     });
   });
 
-  // Reviews: show only real reviews from reviews.js
-  var list = document.getElementById("reviews-list");
-  var empty = document.getElementById("reviews-empty");
-  var reviews = Array.isArray(window.REVIEWS) ? window.REVIEWS : [];
-  if (reviews.length) {
-    empty.hidden = true;
-    reviews.forEach(function (r) {
-      var fig = document.createElement("figure");
-      fig.className = "review";
-      var stars = document.createElement("div");
-      stars.className = "stars";
-      var n = Math.max(1, Math.min(5, Number(r.rating) || 5));
-      stars.textContent = "★".repeat(n) + "☆".repeat(5 - n);
-      stars.setAttribute("aria-label", n + " out of 5");
-      var q = document.createElement("blockquote");
-      q.textContent = r.text;
-      var cap = document.createElement("figcaption");
-      cap.textContent = r.name;
-      var meta = document.createElement("span");
-      meta.textContent = [r.role, r.service].filter(Boolean).join(", ");
-      cap.appendChild(meta);
-      fig.append(stars, q, cap);
-      list.appendChild(fig);
-    });
-  }
-
   // Forms (Web3Forms)
   function wire(form, subject, okMessage) {
     var status = form.querySelector(".form-status");
@@ -161,5 +135,4 @@
     });
   }
   wire(document.getElementById("contact-form"), "New project request from Ian Kuria Portfolio", "Request sent. I will reply with a quote and the next steps.");
-  wire(document.getElementById("review-form"), "New review submitted on Ian Kuria Portfolio", "Thank you. Your review was sent and will be published once I confirm it with you.");
 })();

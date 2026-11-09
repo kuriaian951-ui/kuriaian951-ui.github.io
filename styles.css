@@ -176,6 +176,27 @@ p { margin: 0 0 1em; }
 .cv-2 aside h5 { color: var(--blue-soft); border-color: #333847; }
 .cv-2 aside ul { padding-left: 16px; }
 
+/* Ebook advert */
+.ebook { background: var(--blue-d); color: #fff; padding: clamp(56px, 8vw, 96px) 0; }
+.ebook-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 6vw, 72px); align-items: center; }
+.ebook-art { aspect-ratio: 4 / 5; max-width: 340px; width: 100%; margin-inline: auto; border-radius: 10px; background: linear-gradient(160deg, #11131a, #0b0c10); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; text-align: center; padding: 24px; box-shadow: 18px 22px 0 rgba(0,0,0,.28); transform: rotate(-2deg); border-left: 10px solid var(--blue); }
+.ebook-num { font-family: var(--display); font-weight: 800; font-size: clamp(6rem, 14vw, 9rem); line-height: .9; letter-spacing: -0.06em; color: #fff; }
+.ebook-art-text { font-family: var(--display); font-weight: 700; font-size: 1.35rem; color: var(--blue-soft); }
+.ebook-tag { display: inline-block; margin: 0 0 14px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.16); font-weight: 600; font-size: .9rem; }
+.ebook-copy h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin-bottom: 10px; }
+.ebook-sub { font-size: 1.2rem; color: #dfe4ff; font-weight: 500; }
+.ebook-copy p { max-width: 58ch; }
+.ebook-list { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+.ebook-list li { padding: 7px 14px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-size: .98rem; }
+.ebook-who { color: #dfe4ff; }
+.ebook-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 26px; }
+.btn-light { background: #fff; color: var(--ink); }
+.btn-light:hover { background: var(--mist); }
+.ebook :focus-visible { outline-color: #fff; }
+.ebook-price { margin: 0; display: flex; align-items: baseline; gap: 10px; }
+.ebook-price strong { font-family: var(--display); font-size: 2rem; }
+.ebook-price span { color: #dfe4ff; }
+
 /* Process */
 .section.tint { background: var(--mist); }
 .light .steps p { color: var(--muted); }
@@ -219,6 +240,8 @@ p { margin: 0 0 1em; }
   .services { grid-template-columns: 1fr; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; gap: 36px; }
+  .ebook-grid { grid-template-columns: 1fr; }
+  .ebook-art { max-width: 260px; }
   .work-grid { grid-template-columns: repeat(2, 1fr); }
   .work-grid .work { grid-column: span 1; }
   .work-grid .work-wide { flex-direction: column; }

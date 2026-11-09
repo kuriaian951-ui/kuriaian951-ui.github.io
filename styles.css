@@ -86,9 +86,9 @@ p { margin: 0 0 1em; }
 .vf-rec { position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%); display: flex; align-items: center; gap: 10px; margin: 0; padding: 9px 18px; border-radius: 999px; background: var(--ink); border: 1px solid var(--line); font-weight: 600; white-space: nowrap; }
 .rec-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--rec); animation: pulse 1.6s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: .25; } }
-.vf-stats { margin: 34px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; }
+.vf-stats { margin: 34px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; text-align: center; }
 .vf-stats div { display: flex; flex-direction: column-reverse; }
-.vf-stats dd { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 3vw, 2.3rem); letter-spacing: -0.03em; line-height: 1; }
+.vf-stats dd { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 3.4vw, 2.7rem); letter-spacing: -0.03em; line-height: 1; }
 .vf-stats dt { color: #cfd3e2; font-size: .9rem; margin-top: 6px; }
 .vf-source { margin: 16px 0 0; font-size: .85rem; color: var(--muted-d); text-align: center; }
 

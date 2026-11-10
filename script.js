@@ -26,10 +26,10 @@
       var to = parseFloat(el.dataset.to);
       var dec = parseInt(el.dataset.decimals || "0", 10);
       var suffix = el.dataset.suffix || "";
-      var start = performance.now();
+      var start = performance.now() + 1000;
       var dur = 1400;
       function tick(now) {
-        var p = Math.min((now - start) / dur, 1);
+        var p = Math.min(Math.max((now - start) / dur, 0), 1);
         var eased = 1 - Math.pow(1 - p, 3);
         el.textContent = (to * eased).toFixed(dec) + (p < 1 ? "" : suffix);
         if (p < 1) requestAnimationFrame(tick);
@@ -50,7 +50,18 @@
         c.classList.toggle("is-on", on);
         c.setAttribute("aria-pressed", String(on));
       });
-      works.forEach(function (w) { w.hidden = !(f === "all" || w.dataset.cat === f); });
+      var shown = 0;
+      works.forEach(function (w) {
+        var vis = f === "all" || w.dataset.cat === f;
+        w.hidden = !vis;
+        if (vis && w.hasAttribute("data-reveal")) {
+          w.classList.remove("is-in");
+          void w.offsetWidth;
+          w.style.setProperty("--d", shown * 70 + "ms");
+          w.classList.add("is-in");
+          shown++;
+        }
+      });
     });
   });
 
@@ -87,6 +98,104 @@
       if (sel) sel.value = a.dataset.service;
     });
   });
+
+  // Header state and scroll progress bar
+  var header = document.querySelector(".site-header");
+  var bar = document.querySelector(".progress");
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.pageYOffset || 0;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar) bar.style.setProperty("--p", max > 0 ? Math.min(y / max, 1).toFixed(4) : "0");
+      header.classList.toggle("is-scrolled", y > 24);
+      if (y < 200) document.querySelectorAll(".nav a.is-active").forEach(function (a) { a.classList.remove("is-active"); a.removeAttribute("aria-current"); });
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  var hasIO = "IntersectionObserver" in window;
+
+  // Highlight the menu link for the section being read
+  if (hasIO) {
+    var links = {};
+    document.querySelectorAll('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        Object.keys(links).forEach(function (id) {
+          var on = id === en.target.id;
+          links[id].classList.toggle("is-active", on);
+          if (on) links[id].setAttribute("aria-current", "true"); else links[id].removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    Object.keys(links).forEach(function (id) { var sec = document.getElementById(id); if (sec) spy.observe(sec); });
+  }
+
+  // Reveal on scroll, staggered within a row
+  if (hasIO && !reduceMotion) {
+    var groups = [[".section-head", false], [".service", true], [".work", true], [".ebook-art", false], [".ebook-copy", false], [".steps li", true], [".contact-intro", false], [".contact .form", false]];
+    var reveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("is-in");
+        reveal.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    groups.forEach(function (g) {
+      document.querySelectorAll(g[0]).forEach(function (el) {
+        var idx = 0;
+        if (g[1]) idx = Array.prototype.filter.call(el.parentNode.children, function (c) { return c.matches(g[0]); }).indexOf(el);
+        el.setAttribute("data-reveal", "");
+        el.style.setProperty("--d", (idx % 3) * 90 + "ms");
+        reveal.observe(el);
+      });
+    });
+  }
+
+  // Portrait follows the pointer on mouse devices
+  if (!reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var hero = document.querySelector(".hero");
+    var vf = document.querySelector(".viewfinder");
+    hero.addEventListener("pointermove", function (e) {
+      var r = hero.getBoundingClientRect();
+      vf.style.setProperty("--px", (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3));
+      vf.style.setProperty("--py", (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3));
+    });
+    hero.addEventListener("pointerleave", function () { vf.style.setProperty("--px", "0"); vf.style.setProperty("--py", "0"); });
+  }
+
+  // Marquee: fill the row, clone it once and loop at a steady speed
+  var track = document.querySelector(".marquee-track");
+  if (track && !reduceMotion) {
+    var base = Array.prototype.map.call(track.firstElementChild.children, function (n) { return n.cloneNode(true); });
+    var buildMarquee = function () {
+      track.classList.remove("is-running");
+      track.style.animationDuration = "";
+      track.replaceChildren();
+      var g = document.createElement("div");
+      g.className = "marquee-group";
+      base.forEach(function (n) { g.appendChild(n.cloneNode(true)); });
+      track.appendChild(g);
+      track.classList.add("is-running");
+      var guard = 0;
+      while (g.offsetWidth < window.innerWidth * 1.2 && guard++ < 10) base.forEach(function (n) { g.appendChild(n.cloneNode(true)); });
+      var copy = g.cloneNode(true);
+      copy.setAttribute("data-clone", "");
+      track.appendChild(copy);
+      track.style.animationDuration = Math.max(g.offsetWidth / 55, 12) + "s";
+    };
+    var rebuildTimer;
+    var startMarquee = function () { buildMarquee(); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(startMarquee); else startMarquee();
+    window.addEventListener("resize", function () { clearTimeout(rebuildTimer); rebuildTimer = setTimeout(buildMarquee, 250); });
+  }
 
   // Forms (Web3Forms)
   function wire(form, subject, okMessage) {

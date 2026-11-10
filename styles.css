@@ -189,6 +189,8 @@ p { margin: 0 0 1em; }
 .ebook-copy h2 { font-size: clamp(2rem, 4vw, 3.1rem); margin-bottom: 10px; }
 .ebook-sub { font-size: 1.2rem; color: #dfe4ff; font-weight: 500; }
 .ebook-copy p { max-width: 58ch; }
+.ebook-by { margin: 0 0 18px; font-weight: 600; font-size: .98rem; color: #fff; }
+.ebook-sub { margin-bottom: .4em; }
 .ebook-list { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-wrap: wrap; gap: 10px; }
 .ebook-list li { padding: 7px 14px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; font-size: .98rem; }
 .ebook-who { color: #dfe4ff; }
